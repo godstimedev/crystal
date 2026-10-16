@@ -21,6 +21,11 @@
   --tracking-label: 0.28em;
 }
 
+/* Guard against sideways scrolling on phones; `clip` (unlike `hidden`) keeps the sticky bar working */
+body {
+  overflow-x: clip;
+}
+
 /* Keep anchor targets clear of the 3rem sticky chapter bar on mobile (the desktop rail doesn't overlap) */
 html {
   scroll-padding-top: 3rem;

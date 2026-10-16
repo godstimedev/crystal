@@ -33,14 +33,14 @@ function enquiry(subject: string) {
 /* Chapters: the five scales. Drives the scale index and chapter headers. */
 
 export type ChapterId = 'object' | 'building' | 'profession' | 'city' | 'generation';
-export type Chapter = { id: ChapterId; number: string; scale: string };
+export type Chapter = { id: ChapterId; number: string; scale: string; brand: string };
 
 export const chapters: Chapter[] = [
-	{ id: 'object', number: '01', scale: 'Object' },
-	{ id: 'building', number: '02', scale: 'Building' },
-	{ id: 'profession', number: '03', scale: 'Profession' },
-	{ id: 'city', number: '04', scale: 'City' },
-	{ id: 'generation', number: '05', scale: 'Generation' },
+	{ id: 'object', number: '01', scale: 'Object', brand: 'ELEvated' },
+	{ id: 'building', number: '02', scale: 'Building', brand: 'Studio COKA' },
+	{ id: 'profession', number: '03', scale: 'Profession', brand: 'The Effective Architect' },
+	{ id: 'city', number: '04', scale: 'City', brand: 'Speaking, research & writing' },
+	{ id: 'generation', number: '05', scale: 'Generation', brand: 'AKO Alliance · Alive and Free' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -49,6 +49,11 @@ export const site = {
 	name: 'Crystal Kizor',
 	monogram: 'CK',
 	contact: { label: 'Get in touch', href: '#start' } satisfies Link,
+	/** Shown under the chapters in the mobile menu */
+	menuLinks: [
+		{ label: 'Where would you like to start?', href: '#start' },
+		{ label: 'About Crystal', href: '#about' },
+	] satisfies Link[],
 	/** Vercel sets VERCEL_PROJECT_PRODUCTION_URL (no protocol); local builds fall back to localhost. */
 	url: process.env.VERCEL_PROJECT_PRODUCTION_URL
 		? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`

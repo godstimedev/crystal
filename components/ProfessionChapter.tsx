@@ -9,7 +9,7 @@ export function ProfessionChapter() {
   return (
     <section id="profession" aria-labelledby="profession-title" className="bg-espresso">
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="relative aspect-[6/5] min-h-[360px] lg:aspect-auto">
+        <div className="relative aspect-[6/5] w-full lg:aspect-auto lg:min-h-[360px]">
           <Image
             src={tea.portrait.src}
             alt={tea.portrait.alt}

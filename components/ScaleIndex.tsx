@@ -1,3 +1,4 @@
+import { MobileMenu } from "@/components/MobileMenu";
 import { chapters, site } from "@/content/site";
 
 export function ScaleIndex() {
@@ -20,27 +21,14 @@ export function ScaleIndex() {
         ))}
       </nav>
 
-      {/* Mobile: slim sticky bar that scrolls sideways */}
-      <nav
-        aria-label="Chapters"
-        className="sticky top-0 z-40 border-b border-cream/10 bg-night lg:hidden"
-      >
-        <div className="flex h-12 items-center gap-5 px-4">
-          <a href="#top" className="shrink-0 font-italiana text-xl">
-            <span aria-hidden="true">{site.monogram}</span>
-            <span className="sr-only">{site.name}, back to top</span>
-          </a>
-          <ul className="flex gap-5 overflow-x-auto whitespace-nowrap text-[10px] uppercase tracking-[0.22em] text-cream/80 [scrollbar-width:none]">
-            {chapters.map((chapter) => (
-              <li key={chapter.id}>
-                <a href={`#${chapter.id}`}>
-                  {chapter.number} {chapter.scale}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+      {/* Mobile: sticky bar with a menu button */}
+      <MobileMenu
+        chapters={chapters}
+        links={site.menuLinks}
+        contact={site.contact}
+        monogram={site.monogram}
+        name={site.name}
+      />
     </>
   );
 }
