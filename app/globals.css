@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* next/font exposes --ff-* variables on <html>; map them to Tailwind font utilities */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-italiana: var(--ff-italiana);
+  --font-display: var(--ff-cormorant);
+  --font-sans: var(--ff-jost);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --color-cream: #f3eee6;
+  --color-sand: #e8decf;
+  --color-espresso: #2a1a12;
+  --color-night: #1d120c;
+  --color-muted: #6b5a4e;
+  --color-line: #d8ccbb;
+  /* Two terracottas so small text passes AA on both band colours */
+  --color-laterite: #9a5b36; /* on cream/sand: 4.6:1 */
+  --color-laterite-soft: #c98457; /* on espresso/night: 5.6:1 */
+
+  --tracking-label: 0.28em;
+}
+
+/* Keep anchor targets clear of the 3rem sticky chapter bar on mobile (the desktop rail doesn't overlap) */
+html {
+  scroll-padding-top: 3rem;
+}
+
+@media (width >= 64rem) {
+  html {
+    scroll-padding-top: 0;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Striped, dashed fill so placeholders read as unfinished on purpose */
+.placeholder-light {
+  background: repeating-linear-gradient(135deg, #ebe3d7 0 10px, #e2d8c9 10px 20px);
+  border: 1px dashed #9c8b7c;
+}
+
+.placeholder-dark {
+  background: repeating-linear-gradient(135deg, rgb(243 238 230 / 0.06) 0 10px, rgb(243 238 230 / 0.11) 10px 20px);
+  border: 1px dashed rgb(243 238 230 / 0.45);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* Hero entrance moves only: text is visible from first paint, so it counts toward LCP and Speed Index */
+@keyframes settle {
+  from {
+    transform: translateY(14px);
+  }
+}
+
+/* Motion is opt-in: nothing moves for visitors who prefer reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .rise {
+    animation: settle 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  /* Scroll-linked reveal in CSS only; browsers without support show content as-is */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
 }

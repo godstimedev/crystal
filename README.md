@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crystal Kizor: landing page
 
-## Getting Started
+A single-page site for the Crystal Kizor personal brand, built for the Studio COKA Web Developer assessment (Part 1).
 
-First, run the development server:
+## The idea: designing at every scale
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Crystal's work spans seven brands and initiatives that could easily read as a list of unrelated businesses. The page ties them together with an idea from her own discipline: architects work at every scale, from a chair to a city.
+
+Each brand becomes a chapter at the scale it works on:
+
+| Chapter | Scale | Brand |
+|---|---|---|
+| 01 | Object | ELEvated: furniture and product design |
+| 02 | Building | Studio COKA: architecture, interiors, construction |
+| 03 | Profession | The Effective Architect (TEA): education and media for architects |
+| 04 | City | Speaking, research and writing |
+| 05 | Generation | AKO Alliance and Alive and Free: children and young people |
+
+Studio COKA gets the most space because it holds the only built proof: real photographs of a completed home, plus two sets of renders. ELEvated and chapter 05 are typographic on purpose, so there are no empty image boxes for brands without photography yet.
+
+## Routing visitors
+
+- **Early:** a "Jump to" row in the hero for visitors who already know what they want.
+- **In each chapter:** one clear call to action at the point where interest forms.
+- **At the end:** "Where would you like to start?", a table that matches seven kinds of visitor to one destination each.
+- **Throughout:** a scale index (side rail on desktop, sticky bar on mobile) to move between chapters.
+
+## Structure
+
+```
+app/            layout (fonts, metadata), page (section order), globals.css (theme tokens, motion)
+components/     one component per section, plus small shared pieces (ChapterHeader, CtaLink, Placeholder)
+content/site.ts all copy, brands, chapters, images and routing rows, typed
+public/images/  photography and renders, imported statically
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To change copy, links or the routing table, edit `content/site.ts`. No component needs to change.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technical notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 16 (App Router), TypeScript, Tailwind CSS v4.** The page is fully static and prerendered at build time.
+- **Images:** every image goes through `next/image`, with `sizes` matched to its grid, static imports (so no layout shift) and blur placeholders. The two full-bleed images use quality 90; everything else uses 75.
+- **Fonts:** Italiana (display, echoing the wordmark), Cormorant Garamond (editorial serif) and Jost (labels and body, echoing the tracked horizontal logo), all loaded with `next/font`.
+- **Motion:** CSS only, with no animation library and no client JavaScript. The hero settles into place, and chapters reveal with scroll-linked CSS animations where the browser supports them. Everything is off under `prefers-reduced-motion`.
+- **Accessibility:** a skip link, labelled landmarks, one `h1` and an ordered heading outline, alt text on every image, and visible focus outlines on light and dark bands. The colour pairs were checked for WCAG AA. Two terracotta values are used so small text passes on both the cream and espresso bands.
 
-## Learn More
+## Placeholders
 
-To learn more about Next.js, take a look at the following resources:
+The following are clearly labelled on the page, and marked `Placeholder` in `content/site.ts`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- External links for every brand, social profile, speaking enquiries and contact
+- Crystal's short biography
+- The latest TEA episode or programme
+- Writing, research and media pieces
+- Contact email
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+No facts, clients, quotes or statistics have been invented.
 
-## Deploy on Vercel
+## Running locally
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install
+npm run dev               # http://localhost:3000
+npm run build && npm start  # production build
+```

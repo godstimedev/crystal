@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
+  images: {
+    // 75 for galleries; 90 only for the two full-bleed images, where compression shows most
+    qualities: [75, 90],
+  },
   partialPrefetching: true,
   turbopack: {
     rules: {
