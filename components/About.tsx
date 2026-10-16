@@ -26,6 +26,9 @@ export function About() {
           <Placeholder tone="light" className="mt-7 max-w-xl">
             {about.bioPlaceholder}
           </Placeholder>
+          <Placeholder tone="light" className="mt-3 max-w-xl">
+            {about.recognitionPlaceholder}
+          </Placeholder>
 
           {/* Signature cropped from the logo sheet; multiply drops the sheet's background into the page */}
           <div role="img" aria-label={`${site.name}’s signature`} className="relative mt-10 h-[85px] w-[260px] overflow-hidden">

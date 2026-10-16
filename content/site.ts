@@ -20,6 +20,16 @@ export type Link = { label: string; href: string };
 export type Photo = { src: StaticImageData; alt: string };
 
 /* ------------------------------------------------------------------ */
+/* Direct enquiries. Placeholder: add Crystal's address here and every enquiry
+   button becomes an email with the subject already filled in. Until then they stay inert. */
+
+const contactEmail = '';
+
+function enquiry(subject: string) {
+	return contactEmail ? `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}` : '#';
+}
+
+/* ------------------------------------------------------------------ */
 /* Chapters: the five scales. Drives the scale index and chapter headers. */
 
 export type ChapterId = 'object' | 'building' | 'profession' | 'city' | 'generation';
@@ -39,6 +49,16 @@ export const site = {
 	name: 'Crystal Kizor',
 	monogram: 'CK',
 	contact: { label: 'Get in touch', href: '#start' } satisfies Link,
+	/** Vercel sets VERCEL_PROJECT_PRODUCTION_URL (no protocol); local builds fall back to localhost. */
+	url: process.env.VERCEL_PROJECT_PRODUCTION_URL
+		? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+		: 'http://localhost:3000',
+	seo: {
+		title: 'Crystal Kizor · Architect, designing at every scale',
+		description:
+			'Crystal Kizor is an architect, designer, entrepreneur, speaker, researcher and creator. Studio COKA, ELEvated, The Effective Architect, AKO Alliance and Alive and Free.',
+		jobTitle: 'Architect',
+	},
 };
 
 export const hero = {
@@ -94,8 +114,7 @@ export const studioCoka = {
 	description:
 		'Architecture, interior design and construction studio focused on thoughtful, climate-responsive design.',
 	approach: 'Shade, earth, brick and timber, used to make buildings that work with the climate.',
-	// Placeholder: replace with the studio's enquiry URL
-	cta: { label: 'Start a project with Studio COKA', href: '#' } satisfies Link,
+	cta: { label: 'Start a project with Studio COKA', href: enquiry('Project enquiry · Studio COKA') } satisfies Link,
 	lead: {
 		photo: {
 			src: ccExterior,
@@ -180,8 +199,7 @@ export const speaking = {
 		'Entrepreneurship',
 		'The built environment',
 	],
-	// Placeholder: replace with the speaking enquiry URL or mailto
-	cta: { label: 'Book Crystal to speak', href: '#' } satisfies Link,
+	cta: { label: 'Book Crystal to speak', href: enquiry('Speaking enquiry') } satisfies Link,
 	portrait: {
 		src: studioWorkspace,
 		alt: 'Crystal Kizor in a brown suit, arms folded, in front of a wall of plans and material samples',
@@ -255,11 +273,10 @@ export const routes = {
 			destination: 'Alive and Free',
 			href: '#generation',
 		},
-		// Placeholder: replace with a contact URL or mailto
 		{
 			visitor: 'You’re press, a partner or a collaborator',
 			destination: 'Contact Crystal',
-			href: '#',
+			href: enquiry('Press or partnership enquiry'),
 		},
 	] satisfies Route[],
 };
@@ -271,6 +288,8 @@ export const about = {
 	statement:
 		'Architect, designer, entrepreneur, speaker, researcher and creator. One person moving between scales, with architecture as the common thread.',
 	bioPlaceholder: 'Short biography: background, training and current focus, supplied by Crystal.',
+	recognitionPlaceholder:
+		'Selected recognition: awards, publications, features and notable talks, supplied by Crystal.',
 	portrait: {
 		src: studioPortraitTall,
 		alt: 'Crystal Kizor leaning on a stone desk in front of a pin-up wall of drawings and photographs',
@@ -293,6 +312,7 @@ export const footer = {
 		{ label: 'LinkedIn', href: '#' },
 		{ label: 'YouTube', href: '#' },
 	] satisfies Link[],
+	email: contactEmail,
 	emailPlaceholder: '[Email address placeholder]',
 	copyright: '© 2026 Crystal Kizor',
 };

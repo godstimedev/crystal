@@ -62,15 +62,59 @@ html {
   }
 }
 
+/* Opening motion: the hero photo settles from a slight zoom. Transform only, so it never delays paint. */
+@keyframes hero-in {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+/* Preloader: the monogram fades in, then the espresso panel lifts away like a curtain */
+@keyframes preloader-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+@keyframes preloader-lift {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+
+.preloader {
+  display: none;
+}
+
 /* Motion is opt-in: nothing moves for visitors who prefer reduced motion */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
 
+  /* --intro is when the curtain starts lifting; the hero starts moving as it goes */
+  :root {
+    --intro: 1000ms;
+  }
+
+  .preloader {
+    display: flex;
+    animation: preloader-lift 0.7s cubic-bezier(0.7, 0, 0.2, 1) var(--intro) forwards;
+  }
+
+  .preloader-mark {
+    animation: preloader-mark 0.8s ease-out 0.1s both;
+  }
+
+  .hero-in {
+    animation: hero-in 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--intro) both;
+  }
+
   .rise {
     animation: settle 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-    animation-delay: var(--delay, 0ms);
+    animation-delay: calc(var(--intro) + 200ms + var(--delay, 0ms));
   }
 
   /* Scroll-linked reveal in CSS only; browsers without support show content as-is */

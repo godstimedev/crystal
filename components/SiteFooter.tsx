@@ -39,7 +39,13 @@ export function SiteFooter() {
 
           <div>
             <h2 className="mb-4 text-[11px] uppercase tracking-label text-cream/60">Contact</h2>
-            <p className="text-cream/80">{footer.emailPlaceholder}</p>
+            {footer.email ? (
+              <a href={`mailto:${footer.email}`} className="hover:text-laterite-soft">
+                {footer.email}
+              </a>
+            ) : (
+              <p className="text-cream/80">{footer.emailPlaceholder}</p>
+            )}
           </div>
         </div>
 

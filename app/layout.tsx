@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Italiana, Jost } from "next/font/google";
+
+import { site } from "@/content/site";
 import "./globals.css";
 
 const italiana = Italiana({
@@ -20,10 +22,29 @@ const jost = Jost({
   subsets: ["latin"],
 });
 
+// Icons and the share image come from file conventions in app/ (favicon.ico, icon.png, apple-icon.png, opengraph-image.jpg)
 export const metadata: Metadata = {
-  title: "Crystal Kizor · Architect, designing at every scale",
-  description:
-    "Crystal Kizor is an architect, designer, entrepreneur, speaker, researcher and creator. Studio COKA, ELEvated, The Effective Architect, AKO Alliance and Alive and Free.",
+  metadataBase: new URL(site.url),
+  title: site.seo.title,
+  description: site.seo.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en",
+    url: "/",
+    siteName: site.name,
+    title: site.seo.title,
+    description: site.seo.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.seo.title,
+    description: site.seo.description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1d120c",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -42,6 +42,7 @@ To change copy, links or the routing table, edit `content/site.ts`. No component
 - **Images:** every image goes through `next/image`, with `sizes` matched to its grid, static imports (so no layout shift) and blur placeholders. The two full-bleed images use quality 90; everything else uses 75.
 - **Fonts:** Italiana (display, echoing the wordmark), Cormorant Garamond (editorial serif) and Jost (labels and body, echoing the tracked horizontal logo), all loaded with `next/font`.
 - **Motion:** CSS only, with no animation library and no client JavaScript. The hero settles into place, and chapters reveal with scroll-linked CSS animations where the browser supports them. Everything is off under `prefers-reduced-motion`.
+- **SEO and sharing:** title, description, canonical URL, Open Graph and X card tags with a 1200×630 share image, schema.org `Person` data, `robots.txt` and `sitemap.xml`. Icons and the share image use Crystal's own CK monogram and wordmark. Absolute URLs come from Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, so no domain is hard-coded.
 - **Accessibility:** a skip link, labelled landmarks, one `h1` and an ordered heading outline, alt text on every image, and visible focus outlines on light and dark bands. The colour pairs were checked for WCAG AA. Two terracotta values are used so small text passes on both the cream and espresso bands.
 
 ## Placeholders
@@ -49,7 +50,8 @@ To change copy, links or the routing table, edit `content/site.ts`. No component
 The following are clearly labelled on the page, and marked `Placeholder` in `content/site.ts`:
 
 - External links for every brand, social profile, speaking enquiries and contact
-- Crystal's short biography
+- Crystal's short biography and selected recognition (awards, publications, features)
+- Enquiry email: set `contactEmail` in `content/site.ts` and the project, speaking and contact buttons become direct emails with the subject filled in
 - The latest TEA episode or programme
 - Writing, research and media pieces
 - Contact email

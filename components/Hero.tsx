@@ -20,7 +20,7 @@ export function Hero() {
         sizes="100vw"
         quality={90}
         placeholder="blur"
-        className="-z-10 object-cover object-[40%_30%] lg:object-[62%_30%]"
+        className="hero-in -z-10 object-cover object-[40%_30%] lg:object-[62%_30%]"
       />
       {/* Darkens the side the text sits on: bottom on mobile, left on desktop */}
       <div
